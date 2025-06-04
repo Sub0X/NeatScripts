@@ -1,5 +1,28 @@
 #Requires -RunAsAdministrator
 
+# DESCRIPTION:
+# This script secures SSH private keys by setting restrictive file permissions.
+# It recursively processes all files in a specified directory (default: $env:USERPROFILE\.ssh\keys)
+# and sets strict permissions allowing access to only:
+#   - The specified user (default: current user)
+#   - SYSTEM account
+#   - Administrators group
+# The script removes all other permissions and disables inheritance to prevent 
+# unauthorized access to SSH private keys.
+#
+# REQUIREMENTS:
+# - Must be run with administrator privileges
+#
+# USAGE:
+# .\refreshPerms.ps1 [-d <directory>] [-u <username>] [-h]
+#
+# OPTIONS:
+#   -d, --directory   Custom directory path (default: user's .ssh\keys folder)
+#   -u, --username    User to grant permissions to (default: current user)
+#   -h, --help        Display help information
+#
+# It's designed to help set SSH key permissions rather than manually setting them via Advanced Properties.
+
 $showHelp = $false
 $Directory = "$env:USERPROFILE\.ssh\keys"
 $Username = $env:USERNAME
